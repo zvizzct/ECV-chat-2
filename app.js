@@ -31,7 +31,7 @@ app.use(
 
 // Rutas
 app.use(express.static('public'))
-app.use('/auth', userRoutes)
+app.use('/', userRoutes)
 app.use('/chat', chatRoutes)
 
 const PORT = 3000

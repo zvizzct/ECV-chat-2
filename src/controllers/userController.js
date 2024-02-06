@@ -10,11 +10,11 @@ exports.registerUser = async (req, res) => {
 
   const userExists = users.find((user) => user.username === username)
   if (userExists) {
-    return res.redirect('/auth/register')
+    return res.redirect('/register')
   }
   console.log(username, password, hashedPassword)
   users.push({ username, password: hashedPassword })
-  res.redirect('/auth/login')
+  res.redirect('/login')
 }
 
 exports.loginForm = (req, res) => {
@@ -30,5 +30,5 @@ exports.loginUser = async (req, res) => {
     return res.redirect('/chat')
   }
 
-  res.redirect('/auth/login')
+  res.redirect('/login')
 }
