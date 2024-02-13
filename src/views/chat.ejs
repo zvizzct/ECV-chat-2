@@ -1,30 +1,92 @@
-<!doctype html>
-<html>
+<style>
+    body {
+        display: flex;
+        margin: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+    }
 
-<head>
-    <title>Chat</title>
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
+    #chat-list {
+        width: 30%;
+        background-color: #f7f7f7;
+        overflow-y: auto;
+        border-right: 1px solid #ddd;
+        padding: 10px;
+    }
 
-        li {
-            padding: 8px;
-            margin-bottom: 2px;
-            background-color: #f3f3f3;
-        }
-    </style>
-</head>
+    #chat-window {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
 
-<body>
-    <ul id="messages"></ul>
-    <form id="form" action="">
-        <input id="input" autocomplete="off" /><button>Send</button>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        padding: 8px;
+        margin-bottom: 2px;
+        background-color: #f3f3f3;
+    }
+
+    #messages {
+        flex-grow: 1;
+        overflow-y: auto;
+    }
+
+    #form {
+        display: flex;
+        margin-top: auto;
+    }
+
+    #input {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+
+    #new-room-form {
+        margin-bottom: 20px;
+    }
+
+    #room-name {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div id="chat-list">
+
+    <h2>
+        Bienvenido <%= nickname%>
+    </h2>
+    <form id="new-room-form" action="">
+        <input id="new-room-input" placeholder="Add new room" autocomplete="off" />
+        <button type="submit">Add Room</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/chat.js"></script>
-</body>
+    <h3>Salas</h3>
 
-</html>
+    <ul id="rooms">
+        <% rooms.forEach(function(room) { %>
+            <li><a href="/chat/<%= room.room_name %>">
+                    <%= room.room_name %>
+                </a></li>
+            <% }); %>
+    </ul>
+
+</div>
+<div id="chat-window">
+    <% if (typeof roomName !=='undefined' && roomName) { %>
+        <div id="room-name">Sala: <%= roomName %>
+        </div>
+        <% } %>
+            <ul id="messages"></ul>
+            <form id="form" action="">
+                <input id="input" autocomplete="off" /><button>Send</button>
+            </form>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

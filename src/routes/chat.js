@@ -4,4 +4,6 @@ const chatController = require('../controllers/chatController')
 
 router.get('/', chatController.renderChat)
 
+router.get('/:roomName', chatController.renderChatRoom)
+
 module.exports = router
